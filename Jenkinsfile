@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // Le indica a Jenkins que descargue y use la herramienta "Maven3" configurada en Tools
+        maven 'Maven3'
+    }
+
     stages {
         stage('1. Checkout Code') {
             steps {
