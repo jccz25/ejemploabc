@@ -37,7 +37,8 @@ pipeline {
         stage('4. Docker Build') {
             steps {
                 echo 'Construyendo la imagen OCI/Docker de la aplicacion con Jib...'
-                sh 'mvn jib:dockerBuild'
+                //sh 'mvn jib:dockerBuild'
+                sh 'mvn clean compile jib:build'
             }
         }
 

@@ -185,7 +185,12 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>ejemploabc-api:latest</image>
+						<!-- Sustituye 'tu_usuario_dockerhub' por tu usuario real -->
+						<image>admin/ejemploabc-api:latest</image>
+						<auth>
+							<username>${env.DOCKER_USER}</username>
+							<password>${env.DOCKER_PASS}</password>
+						</auth>
 					</to>
 				</configuration>
 			</plugin>
