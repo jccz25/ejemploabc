@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ejemploabc-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ejemploabc-api
+  template:
+    metadata:
+      labels:
+        app: ejemploabc-api
+    spec:
+      containers:
+      - name: ejemploabc-api
+        image: ejemploabc-api:latest
+        imagePullPolicy: Never  # Usa la imagen local de Docker
+        ports:
+        - containerPort: 9090
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "dev"
+          

@@ -28,21 +28,45 @@ pipeline {
         }
 
         //MArca un error al contruir "docker: not found"
-        //stage('4. Docker Build') {
-        //    steps {
-        //        echo 'Construyendo la imagen Docker de la aplicacion...'
-        //        sh 'docker build -t ejemploabc-api:latest .'
-        //    }
-
         stage('4. Docker Build') {
             steps {
                 echo 'Construyendo la imagen OCI/Docker de la aplicacion con Jib...'
+                //sh 'docker build -t ejemploabc-api:latest .'
                 //sh 'mvn jib:dockerBuild'
                 //sh 'mvn clean compile jib:build'
                 sh 'mvn jib:buildTar'
             }
         }
 
+        // --- FASE 5: DESPLIEGUE EN KUBERNETES ---
+
+        stage('5. Deploy to DEV') {
+            steps {
+                echo 'Desplegando en el ambiente de DESARROLLO (dev)...'
+                sh 'kubectl apply -f k8s/ -n dev'
+            }
+        }
+
+        stage('6. Deploy to QA') {
+            steps {
+                echo 'Desplegando en el ambiente de QA (qa)...'
+                sh 'kubectl apply -f k8s/ -n qa'
+            }
+        }
+
+        stage('7. Approval for PROD') {
+            steps {
+                echo 'Esperando aprobacion manual para Produccion...'
+                input message: '¿Aprobar despliegue a PRODUCCIÓN?', ok: 'Desplegar'
+            }
+        }
+
+        stage('8. Deploy to PROD') {
+            steps {
+                echo 'Desplegando en el ambiente de PRODUCCIÓN (prod)...'
+                sh 'kubectl apply -f k8s/ -n prod'
+            }
+        }
 
 
         
