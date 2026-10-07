@@ -27,11 +27,22 @@ pipeline {
             }
         }
 
+        //MArca un error al contruir "docker: not found"
+        //stage('4. Docker Build') {
+        //    steps {
+        //        echo 'Construyendo la imagen Docker de la aplicacion...'
+        //        sh 'docker build -t ejemploabc-api:latest .'
+        //    }
+
         stage('4. Docker Build') {
             steps {
-                echo 'Construyendo la imagen Docker de la aplicacion...'
-                sh 'docker build -t ejemploabc-api:latest .'
+                echo 'Construyendo la imagen OCI/Docker de la aplicacion con Jib...'
+                sh 'mvn jib:dockerBuild'
             }
+        }
+
+
+
         }
     }
 }

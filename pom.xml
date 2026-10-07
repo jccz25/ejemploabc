@@ -178,7 +178,17 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<!-- Google Jib   Hay un error que se presenta cuando se construye (docker: not found) -->
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.0</version>
+				<configuration>
+					<to>
+						<image>ejemploabc-api:latest</image>
+					</to>
+				</configuration>
+			</plugin>
 
 		</plugins>
 	</build>
