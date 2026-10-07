@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('1. Checkout Code') {
+            steps {
+                echo 'Obteniendo el codigo del repositorio...'
+            }
+        }
+
+        stage('2. Build & Unit Tests') {
+            steps {
+                echo 'Ejecutando Pruebas Unitarias con JUnit y Mockito...'
+                sh 'mvn clean test'
+            }
+        }
+
+        stage('3. SonarQube Analysis') {
+            steps {
+                echo 'Enviando analisis de calidad a SonarQube local...'
+                sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=admin -Dsonar.password=password'
+            }
+        }
+
+        stage('4. Docker Build') {
+            steps {
+                echo 'Construyendo la imagen Docker de la aplicacion...'
+                sh 'docker build -t ejemploabc-api:latest .'
+            }
+        }
+    }
+}
+
