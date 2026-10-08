@@ -51,7 +51,8 @@ pipeline {
         stage('6. Deploy to QA') {
             steps {
                 echo 'Desplegando en el ambiente de QA (qa)...'
-                sh 'kubectl apply -f k8s/ -n qa'
+                //sh 'kubectl apply -f k8s/ -n qa'
+                sh 'kubectl apply -f k8s/ -n qa --insecure-skip-tls-verify=true'
             }
         }
 
@@ -65,7 +66,8 @@ pipeline {
         stage('8. Deploy to PROD') {
             steps {
                 echo 'Desplegando en el ambiente de PRODUCCIÓN (prod)...'
-                sh 'kubectl apply -f k8s/ -n prod'
+                //sh 'kubectl apply -f k8s/ -n prod'
+                sh 'kubectl apply -f k8s/ -n prod --insecure-skip-tls-verify=true'
             }
         }
 
