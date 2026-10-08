@@ -43,7 +43,8 @@ pipeline {
         stage('5. Deploy to DEV') {
             steps {
                 echo 'Desplegando en el ambiente de DESARROLLO (dev)...'
-                sh 'kubectl apply -f k8s/ -n dev'
+                //sh 'kubectl apply -f k8s/ -n dev'
+                sh 'kubectl apply -f k8s/ -n dev --insecure-skip-tls-verify=true'
             }
         }
 
