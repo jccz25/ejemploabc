@@ -15,10 +15,10 @@ spec:
       containers:
       - name: ejemploabc-api
         image: ejemploabc-api:latest
-        imagePullPolicy: Never  # Usa la imagen local de Docker
+        #imagePullPolicy: Never  # Usa la imagen local de Docker
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9090
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "dev"
-          
