@@ -56,14 +56,21 @@ pipeline {
             }
         }
 
-        stage('7. Approval for PROD') {
+        stage('7. Approval for QA') {
+            steps {
+                echo 'Esperando aprobacion manual para QA...'
+                input message: '¿Aprobar despliegue a QA?', ok: 'Desplegar'
+            }
+        }
+
+        stage('8. Approval for PROD') {
             steps {
                 echo 'Esperando aprobacion manual para Produccion...'
                 input message: '¿Aprobar despliegue a PRODUCCIÓN?', ok: 'Desplegar'
             }
         }
 
-        stage('8. Deploy to PROD') {
+        stage('9. Deploy to PROD') {
             steps {
                 echo 'Desplegando en el ambiente de PRODUCCIÓN (prod)...'
                 //sh 'kubectl apply -f k8s/ -n prod'
